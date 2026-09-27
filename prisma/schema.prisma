@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/database/prisma-client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum TargetType {
+  FOLDER
+  DOCUMENT
+}
+
+enum PermissionLevel {
+  LIST
+  READ
+  WRITE
+  CREATE
+  DELETE
+}
+
+model Account {
+  id String @id @default(uuid())
+
+  email        String @unique
+  passwordHash String @map("password_hash")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  schemas      Schema[]
+  folders      Folder[]
+  accessTokens AccessToken[]
+
+  @@map("accounts")
+}
+
+model Schema {
+  id String @id @default(uuid())
+
+  ownerId String @map("owner_id")
+  name    String
+  version Int
+
+  jsonSchema Json @map("json_schema")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  owner   Account  @relation(fields: [ownerId], references: [id])
+  folders Folder[]
+
+  @@map("schemas")
+}
+
+model Folder {
+  id String @id @default(uuid())
+
+  ownerId  String @map("owner_id")
+  schemaId String @map("schema_id")
+  name     String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  owner     Account    @relation(fields: [ownerId], references: [id])
+  schema    Schema     @relation(fields: [schemaId], references: [id])
+  documents Document[]
+
+  @@map("folders")
+}
+
+model Document {
+  id String @id @default(uuid())
+
+  folderId    String @map("folder_id")
+  code        String
+  version     Int
+  contentHash String @map("content_hash")
+
+  content Json
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  folder Folder @relation(fields: [folderId], references: [id])
+
+  @@unique([folderId, code])
+  @@map("documents")
+}
+
+model AccessToken {
+  id String @id @default(uuid())
+
+  creatorId String @map("creator_id")
+
+  targetId        String          @map("target_id")
+  targetType      TargetType      @map("target_type")
+  permissionLevel PermissionLevel @map("permission_level")
+
+  tokenHash    String  @map("token_hash")
+  passwordHash String? @map("password_hash")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  creator Account @relation(fields: [creatorId], references: [id])
+
+  @@map("access_tokens")
+}
