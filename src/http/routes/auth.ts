@@ -1,6 +1,7 @@
 import { GroupingProvider } from 'gatex-express';
 import { z } from 'zod';
 import authController from '../controllers/Auth.controller';
+import rateLimitMiddleware from '../middlewares/RateLimiting.middleware';
 
 const registerSchema = z.object({
   email: z
@@ -23,6 +24,16 @@ const loginSchema = z.object({
 });
 
 export default function (provider: GroupingProvider) {
-  provider.post('/register', registerSchema, authController.register);
-  provider.post('/login', loginSchema, authController.login);
+  provider.post(
+    '/register',
+    registerSchema,
+    rateLimitMiddleware('register', 5, 60),
+    authController.register
+  );
+  provider.post(
+    '/login',
+    loginSchema,
+    rateLimitMiddleware('login', 5, 60),
+    authController.login
+  );
 }

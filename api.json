@@ -72,6 +72,16 @@
                 }
               }
             }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERROR_429"
+                }
+              }
+            }
           }
         }
       }
@@ -149,6 +159,16 @@
                 }
               }
             }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERROR_429"
+                }
+              }
+            }
           }
         }
       }
@@ -193,6 +213,19 @@
           "message": {
             "type": "string",
             "default": "Invalid Credentials"
+          }
+        }
+      },
+      "ERROR_429": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "default": false
+          },
+          "message": {
+            "type": "string",
+            "default": "Too Many Requests"
           }
         }
       }
