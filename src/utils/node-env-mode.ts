@@ -1,18 +1,16 @@
 type NodeEnvMode = 'development' | 'production' | 'test';
 
 function getNodeEnvMode(): NodeEnvMode | undefined {
-  const mode =
-    process.env.NEXT_PUBLIC_NODE_ENV_MODE ?? process.env.NODE_ENV_MODE;
+  const mode = process.env.API_ENV_MODE;
 
-  if (mode === 'development' || mode === 'production' || mode === 'test') {
+  if (mode === 'development' || mode === 'production' || mode === 'test')
     return mode;
-  }
 
   return undefined;
 }
 
 export function isDevelopmentMode(): boolean {
-  return getNodeEnvMode() === 'development';
+  return getNodeEnvMode() === 'development' || getNodeEnvMode() == undefined;
 }
 
 export function isProductionMode(): boolean {

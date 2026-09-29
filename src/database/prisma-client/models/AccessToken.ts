@@ -27,6 +27,7 @@ export type AggregateAccessToken = {
 export type AccessTokenMinAggregateOutputType = {
   id: string | null
   creatorId: string | null
+  tokenName: string | null
   targetId: string | null
   targetType: $Enums.TargetType | null
   permissionLevel: $Enums.PermissionLevel | null
@@ -34,11 +35,13 @@ export type AccessTokenMinAggregateOutputType = {
   passwordHash: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  expiresAt: Date | null
 }
 
 export type AccessTokenMaxAggregateOutputType = {
   id: string | null
   creatorId: string | null
+  tokenName: string | null
   targetId: string | null
   targetType: $Enums.TargetType | null
   permissionLevel: $Enums.PermissionLevel | null
@@ -46,11 +49,13 @@ export type AccessTokenMaxAggregateOutputType = {
   passwordHash: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  expiresAt: Date | null
 }
 
 export type AccessTokenCountAggregateOutputType = {
   id: number
   creatorId: number
+  tokenName: number
   targetId: number
   targetType: number
   permissionLevel: number
@@ -58,6 +63,7 @@ export type AccessTokenCountAggregateOutputType = {
   passwordHash: number
   createdAt: number
   updatedAt: number
+  expiresAt: number
   _all: number
 }
 
@@ -65,6 +71,7 @@ export type AccessTokenCountAggregateOutputType = {
 export type AccessTokenMinAggregateInputType = {
   id?: true
   creatorId?: true
+  tokenName?: true
   targetId?: true
   targetType?: true
   permissionLevel?: true
@@ -72,11 +79,13 @@ export type AccessTokenMinAggregateInputType = {
   passwordHash?: true
   createdAt?: true
   updatedAt?: true
+  expiresAt?: true
 }
 
 export type AccessTokenMaxAggregateInputType = {
   id?: true
   creatorId?: true
+  tokenName?: true
   targetId?: true
   targetType?: true
   permissionLevel?: true
@@ -84,11 +93,13 @@ export type AccessTokenMaxAggregateInputType = {
   passwordHash?: true
   createdAt?: true
   updatedAt?: true
+  expiresAt?: true
 }
 
 export type AccessTokenCountAggregateInputType = {
   id?: true
   creatorId?: true
+  tokenName?: true
   targetId?: true
   targetType?: true
   permissionLevel?: true
@@ -96,6 +107,7 @@ export type AccessTokenCountAggregateInputType = {
   passwordHash?: true
   createdAt?: true
   updatedAt?: true
+  expiresAt?: true
   _all?: true
 }
 
@@ -174,6 +186,7 @@ export type AccessTokenGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type AccessTokenGroupByOutputType = {
   id: string
   creatorId: string
+  tokenName: string | null
   targetId: string
   targetType: $Enums.TargetType
   permissionLevel: $Enums.PermissionLevel
@@ -181,6 +194,7 @@ export type AccessTokenGroupByOutputType = {
   passwordHash: string | null
   createdAt: Date
   updatedAt: Date
+  expiresAt: Date | null
   _count: AccessTokenCountAggregateOutputType | null
   _min: AccessTokenMinAggregateOutputType | null
   _max: AccessTokenMaxAggregateOutputType | null
@@ -207,6 +221,7 @@ export type AccessTokenWhereInput = {
   NOT?: Prisma.AccessTokenWhereInput | Prisma.AccessTokenWhereInput[]
   id?: Prisma.StringFilter<"AccessToken"> | string
   creatorId?: Prisma.StringFilter<"AccessToken"> | string
+  tokenName?: Prisma.StringNullableFilter<"AccessToken"> | string | null
   targetId?: Prisma.StringFilter<"AccessToken"> | string
   targetType?: Prisma.EnumTargetTypeFilter<"AccessToken"> | $Enums.TargetType
   permissionLevel?: Prisma.EnumPermissionLevelFilter<"AccessToken"> | $Enums.PermissionLevel
@@ -214,12 +229,14 @@ export type AccessTokenWhereInput = {
   passwordHash?: Prisma.StringNullableFilter<"AccessToken"> | string | null
   createdAt?: Prisma.DateTimeFilter<"AccessToken"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AccessToken"> | Date | string
+  expiresAt?: Prisma.DateTimeNullableFilter<"AccessToken"> | Date | string | null
   creator?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.AccountWhereInput>
 }
 
 export type AccessTokenOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
+  tokenName?: Prisma.SortOrderInput | Prisma.SortOrder
   targetId?: Prisma.SortOrder
   targetType?: Prisma.SortOrder
   permissionLevel?: Prisma.SortOrder
@@ -227,28 +244,32 @@ export type AccessTokenOrderByWithRelationInput = {
   passwordHash?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   creator?: Prisma.AccountOrderByWithRelationInput
 }
 
 export type AccessTokenWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  tokenHash?: string
   AND?: Prisma.AccessTokenWhereInput | Prisma.AccessTokenWhereInput[]
   OR?: Prisma.AccessTokenWhereInput[]
   NOT?: Prisma.AccessTokenWhereInput | Prisma.AccessTokenWhereInput[]
   creatorId?: Prisma.StringFilter<"AccessToken"> | string
+  tokenName?: Prisma.StringNullableFilter<"AccessToken"> | string | null
   targetId?: Prisma.StringFilter<"AccessToken"> | string
   targetType?: Prisma.EnumTargetTypeFilter<"AccessToken"> | $Enums.TargetType
   permissionLevel?: Prisma.EnumPermissionLevelFilter<"AccessToken"> | $Enums.PermissionLevel
-  tokenHash?: Prisma.StringFilter<"AccessToken"> | string
   passwordHash?: Prisma.StringNullableFilter<"AccessToken"> | string | null
   createdAt?: Prisma.DateTimeFilter<"AccessToken"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AccessToken"> | Date | string
+  expiresAt?: Prisma.DateTimeNullableFilter<"AccessToken"> | Date | string | null
   creator?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.AccountWhereInput>
-}, "id">
+}, "id" | "tokenHash">
 
 export type AccessTokenOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
+  tokenName?: Prisma.SortOrderInput | Prisma.SortOrder
   targetId?: Prisma.SortOrder
   targetType?: Prisma.SortOrder
   permissionLevel?: Prisma.SortOrder
@@ -256,6 +277,7 @@ export type AccessTokenOrderByWithAggregationInput = {
   passwordHash?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AccessTokenCountOrderByAggregateInput
   _max?: Prisma.AccessTokenMaxOrderByAggregateInput
   _min?: Prisma.AccessTokenMinOrderByAggregateInput
@@ -267,6 +289,7 @@ export type AccessTokenScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AccessTokenScalarWhereWithAggregatesInput | Prisma.AccessTokenScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"AccessToken"> | string
   creatorId?: Prisma.StringWithAggregatesFilter<"AccessToken"> | string
+  tokenName?: Prisma.StringNullableWithAggregatesFilter<"AccessToken"> | string | null
   targetId?: Prisma.StringWithAggregatesFilter<"AccessToken"> | string
   targetType?: Prisma.EnumTargetTypeWithAggregatesFilter<"AccessToken"> | $Enums.TargetType
   permissionLevel?: Prisma.EnumPermissionLevelWithAggregatesFilter<"AccessToken"> | $Enums.PermissionLevel
@@ -274,10 +297,12 @@ export type AccessTokenScalarWhereWithAggregatesInput = {
   passwordHash?: Prisma.StringNullableWithAggregatesFilter<"AccessToken"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"AccessToken"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"AccessToken"> | Date | string
+  expiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"AccessToken"> | Date | string | null
 }
 
 export type AccessTokenCreateInput = {
   id?: string
+  tokenName?: string | null
   targetId: string
   targetType: $Enums.TargetType
   permissionLevel: $Enums.PermissionLevel
@@ -285,12 +310,14 @@ export type AccessTokenCreateInput = {
   passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  expiresAt?: Date | string | null
   creator: Prisma.AccountCreateNestedOneWithoutAccessTokensInput
 }
 
 export type AccessTokenUncheckedCreateInput = {
   id?: string
   creatorId: string
+  tokenName?: string | null
   targetId: string
   targetType: $Enums.TargetType
   permissionLevel: $Enums.PermissionLevel
@@ -298,10 +325,12 @@ export type AccessTokenUncheckedCreateInput = {
   passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  expiresAt?: Date | string | null
 }
 
 export type AccessTokenUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetId?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.EnumTargetTypeFieldUpdateOperationsInput | $Enums.TargetType
   permissionLevel?: Prisma.EnumPermissionLevelFieldUpdateOperationsInput | $Enums.PermissionLevel
@@ -309,12 +338,14 @@ export type AccessTokenUpdateInput = {
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   creator?: Prisma.AccountUpdateOneRequiredWithoutAccessTokensNestedInput
 }
 
 export type AccessTokenUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetId?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.EnumTargetTypeFieldUpdateOperationsInput | $Enums.TargetType
   permissionLevel?: Prisma.EnumPermissionLevelFieldUpdateOperationsInput | $Enums.PermissionLevel
@@ -322,11 +353,13 @@ export type AccessTokenUncheckedUpdateInput = {
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AccessTokenCreateManyInput = {
   id?: string
   creatorId: string
+  tokenName?: string | null
   targetId: string
   targetType: $Enums.TargetType
   permissionLevel: $Enums.PermissionLevel
@@ -334,10 +367,12 @@ export type AccessTokenCreateManyInput = {
   passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  expiresAt?: Date | string | null
 }
 
 export type AccessTokenUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetId?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.EnumTargetTypeFieldUpdateOperationsInput | $Enums.TargetType
   permissionLevel?: Prisma.EnumPermissionLevelFieldUpdateOperationsInput | $Enums.PermissionLevel
@@ -345,11 +380,13 @@ export type AccessTokenUpdateManyMutationInput = {
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AccessTokenUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetId?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.EnumTargetTypeFieldUpdateOperationsInput | $Enums.TargetType
   permissionLevel?: Prisma.EnumPermissionLevelFieldUpdateOperationsInput | $Enums.PermissionLevel
@@ -357,6 +394,7 @@ export type AccessTokenUncheckedUpdateManyInput = {
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AccessTokenListRelationFilter = {
@@ -372,6 +410,7 @@ export type AccessTokenOrderByRelationAggregateInput = {
 export type AccessTokenCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
+  tokenName?: Prisma.SortOrder
   targetId?: Prisma.SortOrder
   targetType?: Prisma.SortOrder
   permissionLevel?: Prisma.SortOrder
@@ -379,11 +418,13 @@ export type AccessTokenCountOrderByAggregateInput = {
   passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
 }
 
 export type AccessTokenMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
+  tokenName?: Prisma.SortOrder
   targetId?: Prisma.SortOrder
   targetType?: Prisma.SortOrder
   permissionLevel?: Prisma.SortOrder
@@ -391,11 +432,13 @@ export type AccessTokenMaxOrderByAggregateInput = {
   passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
 }
 
 export type AccessTokenMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
+  tokenName?: Prisma.SortOrder
   targetId?: Prisma.SortOrder
   targetType?: Prisma.SortOrder
   permissionLevel?: Prisma.SortOrder
@@ -403,6 +446,7 @@ export type AccessTokenMinOrderByAggregateInput = {
   passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
 }
 
 export type AccessTokenCreateNestedManyWithoutCreatorInput = {
@@ -447,6 +491,10 @@ export type AccessTokenUncheckedUpdateManyWithoutCreatorNestedInput = {
   deleteMany?: Prisma.AccessTokenScalarWhereInput | Prisma.AccessTokenScalarWhereInput[]
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type EnumTargetTypeFieldUpdateOperationsInput = {
   set?: $Enums.TargetType
 }
@@ -455,12 +503,13 @@ export type EnumPermissionLevelFieldUpdateOperationsInput = {
   set?: $Enums.PermissionLevel
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type AccessTokenCreateWithoutCreatorInput = {
   id?: string
+  tokenName?: string | null
   targetId: string
   targetType: $Enums.TargetType
   permissionLevel: $Enums.PermissionLevel
@@ -468,10 +517,12 @@ export type AccessTokenCreateWithoutCreatorInput = {
   passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  expiresAt?: Date | string | null
 }
 
 export type AccessTokenUncheckedCreateWithoutCreatorInput = {
   id?: string
+  tokenName?: string | null
   targetId: string
   targetType: $Enums.TargetType
   permissionLevel: $Enums.PermissionLevel
@@ -479,6 +530,7 @@ export type AccessTokenUncheckedCreateWithoutCreatorInput = {
   passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  expiresAt?: Date | string | null
 }
 
 export type AccessTokenCreateOrConnectWithoutCreatorInput = {
@@ -513,6 +565,7 @@ export type AccessTokenScalarWhereInput = {
   NOT?: Prisma.AccessTokenScalarWhereInput | Prisma.AccessTokenScalarWhereInput[]
   id?: Prisma.StringFilter<"AccessToken"> | string
   creatorId?: Prisma.StringFilter<"AccessToken"> | string
+  tokenName?: Prisma.StringNullableFilter<"AccessToken"> | string | null
   targetId?: Prisma.StringFilter<"AccessToken"> | string
   targetType?: Prisma.EnumTargetTypeFilter<"AccessToken"> | $Enums.TargetType
   permissionLevel?: Prisma.EnumPermissionLevelFilter<"AccessToken"> | $Enums.PermissionLevel
@@ -520,10 +573,12 @@ export type AccessTokenScalarWhereInput = {
   passwordHash?: Prisma.StringNullableFilter<"AccessToken"> | string | null
   createdAt?: Prisma.DateTimeFilter<"AccessToken"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"AccessToken"> | Date | string
+  expiresAt?: Prisma.DateTimeNullableFilter<"AccessToken"> | Date | string | null
 }
 
 export type AccessTokenCreateManyCreatorInput = {
   id?: string
+  tokenName?: string | null
   targetId: string
   targetType: $Enums.TargetType
   permissionLevel: $Enums.PermissionLevel
@@ -531,10 +586,12 @@ export type AccessTokenCreateManyCreatorInput = {
   passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  expiresAt?: Date | string | null
 }
 
 export type AccessTokenUpdateWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetId?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.EnumTargetTypeFieldUpdateOperationsInput | $Enums.TargetType
   permissionLevel?: Prisma.EnumPermissionLevelFieldUpdateOperationsInput | $Enums.PermissionLevel
@@ -542,10 +599,12 @@ export type AccessTokenUpdateWithoutCreatorInput = {
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AccessTokenUncheckedUpdateWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetId?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.EnumTargetTypeFieldUpdateOperationsInput | $Enums.TargetType
   permissionLevel?: Prisma.EnumPermissionLevelFieldUpdateOperationsInput | $Enums.PermissionLevel
@@ -553,10 +612,12 @@ export type AccessTokenUncheckedUpdateWithoutCreatorInput = {
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AccessTokenUncheckedUpdateManyWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetId?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.EnumTargetTypeFieldUpdateOperationsInput | $Enums.TargetType
   permissionLevel?: Prisma.EnumPermissionLevelFieldUpdateOperationsInput | $Enums.PermissionLevel
@@ -564,6 +625,7 @@ export type AccessTokenUncheckedUpdateManyWithoutCreatorInput = {
   passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -571,6 +633,7 @@ export type AccessTokenUncheckedUpdateManyWithoutCreatorInput = {
 export type AccessTokenSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   creatorId?: boolean
+  tokenName?: boolean
   targetId?: boolean
   targetType?: boolean
   permissionLevel?: boolean
@@ -578,12 +641,14 @@ export type AccessTokenSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   passwordHash?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  expiresAt?: boolean
   creator?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["accessToken"]>
 
 export type AccessTokenSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   creatorId?: boolean
+  tokenName?: boolean
   targetId?: boolean
   targetType?: boolean
   permissionLevel?: boolean
@@ -591,12 +656,14 @@ export type AccessTokenSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   passwordHash?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  expiresAt?: boolean
   creator?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["accessToken"]>
 
 export type AccessTokenSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   creatorId?: boolean
+  tokenName?: boolean
   targetId?: boolean
   targetType?: boolean
   permissionLevel?: boolean
@@ -604,12 +671,14 @@ export type AccessTokenSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   passwordHash?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  expiresAt?: boolean
   creator?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["accessToken"]>
 
 export type AccessTokenSelectScalar = {
   id?: boolean
   creatorId?: boolean
+  tokenName?: boolean
   targetId?: boolean
   targetType?: boolean
   permissionLevel?: boolean
@@ -617,9 +686,10 @@ export type AccessTokenSelectScalar = {
   passwordHash?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  expiresAt?: boolean
 }
 
-export type AccessTokenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "creatorId" | "targetId" | "targetType" | "permissionLevel" | "tokenHash" | "passwordHash" | "createdAt" | "updatedAt", ExtArgs["result"]["accessToken"]>
+export type AccessTokenOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "creatorId" | "tokenName" | "targetId" | "targetType" | "permissionLevel" | "tokenHash" | "passwordHash" | "createdAt" | "updatedAt" | "expiresAt", ExtArgs["result"]["accessToken"]>
 export type AccessTokenInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   creator?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
 }
@@ -638,6 +708,7 @@ export type $AccessTokenPayload<ExtArgs extends runtime.Types.Extensions.Interna
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     creatorId: string
+    tokenName: string | null
     targetId: string
     targetType: $Enums.TargetType
     permissionLevel: $Enums.PermissionLevel
@@ -645,6 +716,7 @@ export type $AccessTokenPayload<ExtArgs extends runtime.Types.Extensions.Interna
     passwordHash: string | null
     createdAt: Date
     updatedAt: Date
+    expiresAt: Date | null
   }, ExtArgs["result"]["accessToken"]>
   composites: {}
 }
@@ -1071,6 +1143,7 @@ export interface Prisma__AccessTokenClient<T, Null = never, ExtArgs extends runt
 export interface AccessTokenFieldRefs {
   readonly id: Prisma.FieldRef<"AccessToken", 'String'>
   readonly creatorId: Prisma.FieldRef<"AccessToken", 'String'>
+  readonly tokenName: Prisma.FieldRef<"AccessToken", 'String'>
   readonly targetId: Prisma.FieldRef<"AccessToken", 'String'>
   readonly targetType: Prisma.FieldRef<"AccessToken", 'TargetType'>
   readonly permissionLevel: Prisma.FieldRef<"AccessToken", 'PermissionLevel'>
@@ -1078,6 +1151,7 @@ export interface AccessTokenFieldRefs {
   readonly passwordHash: Prisma.FieldRef<"AccessToken", 'String'>
   readonly createdAt: Prisma.FieldRef<"AccessToken", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"AccessToken", 'DateTime'>
+  readonly expiresAt: Prisma.FieldRef<"AccessToken", 'DateTime'>
 }
     
 

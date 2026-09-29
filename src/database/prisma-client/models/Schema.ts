@@ -20,25 +20,14 @@ export type SchemaModel = runtime.Types.Result.DefaultSelection<Prisma.$SchemaPa
 
 export type AggregateSchema = {
   _count: SchemaCountAggregateOutputType | null
-  _avg: SchemaAvgAggregateOutputType | null
-  _sum: SchemaSumAggregateOutputType | null
   _min: SchemaMinAggregateOutputType | null
   _max: SchemaMaxAggregateOutputType | null
-}
-
-export type SchemaAvgAggregateOutputType = {
-  version: number | null
-}
-
-export type SchemaSumAggregateOutputType = {
-  version: number | null
 }
 
 export type SchemaMinAggregateOutputType = {
   id: string | null
   ownerId: string | null
   name: string | null
-  version: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -47,7 +36,6 @@ export type SchemaMaxAggregateOutputType = {
   id: string | null
   ownerId: string | null
   name: string | null
-  version: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,7 +44,6 @@ export type SchemaCountAggregateOutputType = {
   id: number
   ownerId: number
   name: number
-  version: number
   jsonSchema: number
   createdAt: number
   updatedAt: number
@@ -64,19 +51,10 @@ export type SchemaCountAggregateOutputType = {
 }
 
 
-export type SchemaAvgAggregateInputType = {
-  version?: true
-}
-
-export type SchemaSumAggregateInputType = {
-  version?: true
-}
-
 export type SchemaMinAggregateInputType = {
   id?: true
   ownerId?: true
   name?: true
-  version?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -85,7 +63,6 @@ export type SchemaMaxAggregateInputType = {
   id?: true
   ownerId?: true
   name?: true
-  version?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -94,7 +71,6 @@ export type SchemaCountAggregateInputType = {
   id?: true
   ownerId?: true
   name?: true
-  version?: true
   jsonSchema?: true
   createdAt?: true
   updatedAt?: true
@@ -139,18 +115,6 @@ export type SchemaAggregateArgs<ExtArgs extends runtime.Types.Extensions.Interna
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: SchemaAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: SchemaSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: SchemaMinAggregateInputType
@@ -181,8 +145,6 @@ export type SchemaGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   _count?: SchemaCountAggregateInputType | true
-  _avg?: SchemaAvgAggregateInputType
-  _sum?: SchemaSumAggregateInputType
   _min?: SchemaMinAggregateInputType
   _max?: SchemaMaxAggregateInputType
 }
@@ -191,13 +153,10 @@ export type SchemaGroupByOutputType = {
   id: string
   ownerId: string
   name: string
-  version: number
   jsonSchema: runtime.JsonValue
   createdAt: Date
   updatedAt: Date
   _count: SchemaCountAggregateOutputType | null
-  _avg: SchemaAvgAggregateOutputType | null
-  _sum: SchemaSumAggregateOutputType | null
   _min: SchemaMinAggregateOutputType | null
   _max: SchemaMaxAggregateOutputType | null
 }
@@ -224,7 +183,6 @@ export type SchemaWhereInput = {
   id?: Prisma.StringFilter<"Schema"> | string
   ownerId?: Prisma.StringFilter<"Schema"> | string
   name?: Prisma.StringFilter<"Schema"> | string
-  version?: Prisma.IntFilter<"Schema"> | number
   jsonSchema?: Prisma.JsonFilter<"Schema">
   createdAt?: Prisma.DateTimeFilter<"Schema"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Schema"> | Date | string
@@ -236,7 +194,6 @@ export type SchemaOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  version?: Prisma.SortOrder
   jsonSchema?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -251,7 +208,6 @@ export type SchemaWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.SchemaWhereInput | Prisma.SchemaWhereInput[]
   ownerId?: Prisma.StringFilter<"Schema"> | string
   name?: Prisma.StringFilter<"Schema"> | string
-  version?: Prisma.IntFilter<"Schema"> | number
   jsonSchema?: Prisma.JsonFilter<"Schema">
   createdAt?: Prisma.DateTimeFilter<"Schema"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Schema"> | Date | string
@@ -263,15 +219,12 @@ export type SchemaOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  version?: Prisma.SortOrder
   jsonSchema?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.SchemaCountOrderByAggregateInput
-  _avg?: Prisma.SchemaAvgOrderByAggregateInput
   _max?: Prisma.SchemaMaxOrderByAggregateInput
   _min?: Prisma.SchemaMinOrderByAggregateInput
-  _sum?: Prisma.SchemaSumOrderByAggregateInput
 }
 
 export type SchemaScalarWhereWithAggregatesInput = {
@@ -281,7 +234,6 @@ export type SchemaScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Schema"> | string
   ownerId?: Prisma.StringWithAggregatesFilter<"Schema"> | string
   name?: Prisma.StringWithAggregatesFilter<"Schema"> | string
-  version?: Prisma.IntWithAggregatesFilter<"Schema"> | number
   jsonSchema?: Prisma.JsonWithAggregatesFilter<"Schema">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Schema"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Schema"> | Date | string
@@ -290,7 +242,6 @@ export type SchemaScalarWhereWithAggregatesInput = {
 export type SchemaCreateInput = {
   id?: string
   name: string
-  version: number
   jsonSchema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -302,7 +253,6 @@ export type SchemaUncheckedCreateInput = {
   id?: string
   ownerId: string
   name: string
-  version: number
   jsonSchema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -312,7 +262,6 @@ export type SchemaUncheckedCreateInput = {
 export type SchemaUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.IntFieldUpdateOperationsInput | number
   jsonSchema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -324,7 +273,6 @@ export type SchemaUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.IntFieldUpdateOperationsInput | number
   jsonSchema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -335,7 +283,6 @@ export type SchemaCreateManyInput = {
   id?: string
   ownerId: string
   name: string
-  version: number
   jsonSchema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -344,7 +291,6 @@ export type SchemaCreateManyInput = {
 export type SchemaUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.IntFieldUpdateOperationsInput | number
   jsonSchema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -354,7 +300,6 @@ export type SchemaUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.IntFieldUpdateOperationsInput | number
   jsonSchema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -374,21 +319,15 @@ export type SchemaCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  version?: Prisma.SortOrder
   jsonSchema?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type SchemaAvgOrderByAggregateInput = {
-  version?: Prisma.SortOrder
 }
 
 export type SchemaMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  version?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -397,13 +336,8 @@ export type SchemaMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  version?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type SchemaSumOrderByAggregateInput = {
-  version?: Prisma.SortOrder
 }
 
 export type SchemaScalarRelationFilter = {
@@ -453,14 +387,6 @@ export type SchemaUncheckedUpdateManyWithoutOwnerNestedInput = {
   deleteMany?: Prisma.SchemaScalarWhereInput | Prisma.SchemaScalarWhereInput[]
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type SchemaCreateNestedOneWithoutFoldersInput = {
   create?: Prisma.XOR<Prisma.SchemaCreateWithoutFoldersInput, Prisma.SchemaUncheckedCreateWithoutFoldersInput>
   connectOrCreate?: Prisma.SchemaCreateOrConnectWithoutFoldersInput
@@ -478,7 +404,6 @@ export type SchemaUpdateOneRequiredWithoutFoldersNestedInput = {
 export type SchemaCreateWithoutOwnerInput = {
   id?: string
   name: string
-  version: number
   jsonSchema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -488,7 +413,6 @@ export type SchemaCreateWithoutOwnerInput = {
 export type SchemaUncheckedCreateWithoutOwnerInput = {
   id?: string
   name: string
-  version: number
   jsonSchema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -528,7 +452,6 @@ export type SchemaScalarWhereInput = {
   id?: Prisma.StringFilter<"Schema"> | string
   ownerId?: Prisma.StringFilter<"Schema"> | string
   name?: Prisma.StringFilter<"Schema"> | string
-  version?: Prisma.IntFilter<"Schema"> | number
   jsonSchema?: Prisma.JsonFilter<"Schema">
   createdAt?: Prisma.DateTimeFilter<"Schema"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Schema"> | Date | string
@@ -537,7 +460,6 @@ export type SchemaScalarWhereInput = {
 export type SchemaCreateWithoutFoldersInput = {
   id?: string
   name: string
-  version: number
   jsonSchema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -548,7 +470,6 @@ export type SchemaUncheckedCreateWithoutFoldersInput = {
   id?: string
   ownerId: string
   name: string
-  version: number
   jsonSchema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -573,7 +494,6 @@ export type SchemaUpdateToOneWithWhereWithoutFoldersInput = {
 export type SchemaUpdateWithoutFoldersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.IntFieldUpdateOperationsInput | number
   jsonSchema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -584,7 +504,6 @@ export type SchemaUncheckedUpdateWithoutFoldersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.IntFieldUpdateOperationsInput | number
   jsonSchema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -593,7 +512,6 @@ export type SchemaUncheckedUpdateWithoutFoldersInput = {
 export type SchemaCreateManyOwnerInput = {
   id?: string
   name: string
-  version: number
   jsonSchema: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -602,7 +520,6 @@ export type SchemaCreateManyOwnerInput = {
 export type SchemaUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.IntFieldUpdateOperationsInput | number
   jsonSchema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -612,7 +529,6 @@ export type SchemaUpdateWithoutOwnerInput = {
 export type SchemaUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.IntFieldUpdateOperationsInput | number
   jsonSchema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -622,7 +538,6 @@ export type SchemaUncheckedUpdateWithoutOwnerInput = {
 export type SchemaUncheckedUpdateManyWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  version?: Prisma.IntFieldUpdateOperationsInput | number
   jsonSchema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -663,7 +578,6 @@ export type SchemaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   ownerId?: boolean
   name?: boolean
-  version?: boolean
   jsonSchema?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -676,7 +590,6 @@ export type SchemaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   ownerId?: boolean
   name?: boolean
-  version?: boolean
   jsonSchema?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -687,7 +600,6 @@ export type SchemaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   ownerId?: boolean
   name?: boolean
-  version?: boolean
   jsonSchema?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -698,13 +610,12 @@ export type SchemaSelectScalar = {
   id?: boolean
   ownerId?: boolean
   name?: boolean
-  version?: boolean
   jsonSchema?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SchemaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "name" | "version" | "jsonSchema" | "createdAt" | "updatedAt", ExtArgs["result"]["schema"]>
+export type SchemaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "name" | "jsonSchema" | "createdAt" | "updatedAt", ExtArgs["result"]["schema"]>
 export type SchemaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
   folders?: boolean | Prisma.Schema$foldersArgs<ExtArgs>
@@ -727,7 +638,6 @@ export type $SchemaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     id: string
     ownerId: string
     name: string
-    version: number
     jsonSchema: runtime.JsonValue
     createdAt: Date
     updatedAt: Date
@@ -1159,7 +1069,6 @@ export interface SchemaFieldRefs {
   readonly id: Prisma.FieldRef<"Schema", 'String'>
   readonly ownerId: Prisma.FieldRef<"Schema", 'String'>
   readonly name: Prisma.FieldRef<"Schema", 'String'>
-  readonly version: Prisma.FieldRef<"Schema", 'Int'>
   readonly jsonSchema: Prisma.FieldRef<"Schema", 'Json'>
   readonly createdAt: Prisma.FieldRef<"Schema", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Schema", 'DateTime'>

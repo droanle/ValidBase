@@ -89,7 +89,6 @@ export const SchemaScalarFieldEnum = {
   id: 'id',
   ownerId: 'ownerId',
   name: 'name',
-  version: 'version',
   jsonSchema: 'jsonSchema',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -127,13 +126,15 @@ export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typ
 export const AccessTokenScalarFieldEnum = {
   id: 'id',
   creatorId: 'creatorId',
+  tokenName: 'tokenName',
   targetId: 'targetId',
   targetType: 'targetType',
   permissionLevel: 'permissionLevel',
   tokenHash: 'tokenHash',
   passwordHash: 'passwordHash',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  expiresAt: 'expiresAt'
 } as const
 
 export type AccessTokenScalarFieldEnum = (typeof AccessTokenScalarFieldEnum)[keyof typeof AccessTokenScalarFieldEnum]

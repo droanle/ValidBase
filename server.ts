@@ -10,8 +10,8 @@ async function startServer() {
   await initDatabases();
 
   app
-    .listen(port, 'localhost', () =>
-      console.info(`>> Server running on: http://localhost:${port}`)
+    .listen(port, process.env.API_HOST ?? '0.0.0.0', () =>
+      console.info(`>> Server running on: ${process.env.API_URL}`)
     )
     .on('error', (err: any) => {
       if (err.code === 'EADDRINUSE')

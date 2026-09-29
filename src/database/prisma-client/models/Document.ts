@@ -469,6 +469,14 @@ export type DocumentUncheckedUpdateManyWithoutFolderNestedInput = {
   deleteMany?: Prisma.DocumentScalarWhereInput | Prisma.DocumentScalarWhereInput[]
 }
 
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type DocumentCreateWithoutFolderInput = {
   id?: string
   code: string
