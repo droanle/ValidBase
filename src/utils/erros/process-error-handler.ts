@@ -2,7 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 import defaultResponse from '../default-response';
 import { isProductionMode } from '../node-env-mode';
 import { AppError } from './AppError';
-import { InvalidTokenError } from '../Session';
+import { InvalidCredentialError } from '../Session';
+import { AjvValidationError } from './AjvValidationError';
 
 export default function (
   err: Error,
@@ -13,7 +14,7 @@ export default function (
   let response: {
     success: boolean;
     message: string;
-    content: any;
+    content?: any;
     status?: number;
   } = {
     success: false,
@@ -26,15 +27,23 @@ export default function (
     status: 500,
   };
 
-  if (err instanceof AppError) {
-    response.status = err.status;
-  }
+  // === Handling Process Errors ===
+  if (err instanceof AppError) response.status = err.status;
 
-  if (err instanceof InvalidTokenError) {
+  if (err instanceof InvalidCredentialError) {
     response.status = 401;
+    response.content = { ...response.content, reason: err.reason };
   }
 
-  if (isProductionMode()) response.content = null;
+  if (isProductionMode()) response.content = undefined;
+  // === Handling Process Errors ===
+
+  // === Handling Errors with descriptive content ===
+  if (err instanceof AjvValidationError) {
+    response.status = 422;
+    response.content = err.details;
+  }
+  // === Handling Errors with descriptive content ===
 
   return defaultResponse(
     res,

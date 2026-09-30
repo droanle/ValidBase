@@ -491,20 +491,12 @@ export type AccessTokenUncheckedUpdateManyWithoutCreatorNestedInput = {
   deleteMany?: Prisma.AccessTokenScalarWhereInput | Prisma.AccessTokenScalarWhereInput[]
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type EnumTargetTypeFieldUpdateOperationsInput = {
   set?: $Enums.TargetType
 }
 
 export type EnumPermissionLevelFieldUpdateOperationsInput = {
   set?: $Enums.PermissionLevel
-}
-
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
 }
 
 export type AccessTokenCreateWithoutCreatorInput = {

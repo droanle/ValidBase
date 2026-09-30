@@ -50,16 +50,16 @@ async function checkAndLogRateLimit(
  * Creates a rate limiting middleware.
  * @param tool - The name of the tool or service for which to apply rate limiting.
  * @param limit - The maximum number of allowed requests within the tolerance time.
- * @param toleranceSeconds - The time window in seconds for which the rate limit applies.
+ * @param toleranceTime - The time window in minutes for which the rate limit applies.
  */
 export default function rateLimitMiddleware(
   tool: string,
   limit: number,
-  toleranceSeconds: number
+  toleranceTime: number
 ) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      await checkAndLogRateLimit(`${req.ip}:${tool}`, limit, toleranceSeconds);
+      await checkAndLogRateLimit(`${req.ip}:${tool}`, limit, toleranceTime);
     } catch (error) {
       if (error instanceof RateLimitExceededError) {
         res.setHeader('Retry-After', String(error.retryAfterSeconds));

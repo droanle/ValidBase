@@ -1,4 +1,4 @@
-import Session, { InvalidTokenError } from '../utils/Session';
+import Session, { InvalidCredentialError } from '../utils/Session';
 import AccessTokenRepository from '../repositories/AccessToken.repository';
 import bcrypt from 'bcryptjs';
 import { AppError } from '../utils/erros/AppError';
@@ -15,9 +15,9 @@ export default (session?: Session) => ({
       sha256(token)
     );
 
-    if (!accessToken) throw new InvalidTokenError();
+    if (!accessToken) throw new InvalidCredentialError('Invalid token');
     if (accessToken.expiresAt && accessToken.expiresAt < new Date())
-      throw new InvalidTokenError();
+      throw new InvalidCredentialError('Token expired');
 
     const passwordOk = await bcrypt.compare(
       password ?? 'DUMMY-SECRET',

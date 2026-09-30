@@ -6,6 +6,7 @@ import rateLimitMiddleware from '../middlewares/RateLimiting.middleware';
 
 type statusType = 'ok' | 'degraded' | 'error';
 
+// TODO: Definir parâmetros de rate limiting correta
 export default function (provider: GroupingProvider) {
   provider.get(
     '/health',

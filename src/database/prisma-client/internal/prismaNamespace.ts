@@ -845,9 +845,11 @@ export const SchemaScalarFieldEnum = {
   id: 'id',
   ownerId: 'ownerId',
   name: 'name',
+  description: 'description',
   jsonSchema: 'jsonSchema',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
 } as const
 
 export type SchemaScalarFieldEnum = (typeof SchemaScalarFieldEnum)[keyof typeof SchemaScalarFieldEnum]

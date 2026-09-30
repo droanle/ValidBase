@@ -10,6 +10,7 @@ import { initRedisClient, type RedisClient, RedisFtIndexDefinition, } from './re
 
 type ModelConfig = { field: string };
 type ConfigModels = Partial<Record<ModelName, ModelConfig | boolean>>;
+type QueryArgs = { where?: unknown } | undefined;
 
 const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) throw new Error('DATABASE_URL is not defined');
@@ -20,6 +21,41 @@ const basePrisma = new PrismaClient({ adapter });
 const softDeleteModels: ConfigModels = {
   Schema: true,
 };
+
+const defaultSoftDeleteField = 'deletedAt';
+
+function getSoftDeleteField(model: ModelName): string | null {
+  const config = softDeleteModels[model];
+  if (!config) return null;
+
+  return config === true ? defaultSoftDeleteField : config.field;
+}
+
+function hasOwnField(where: unknown, field: string): boolean {
+  if (!where || typeof where !== 'object' || Array.isArray(where)) return false;
+
+  return Object.prototype.hasOwnProperty.call(where, field);
+}
+
+function withSoftDeleteWhere<TArgs extends QueryArgs>(
+  args: TArgs,
+  field: string
+): TArgs {
+  const currentWhere =
+    args && typeof args === 'object' ? (args as QueryArgs)?.where : undefined;
+
+  if (hasOwnField(currentWhere, field)) return args;
+
+  const where = currentWhere
+    ? { AND: [currentWhere, { [field]: null }] }
+    : { [field]: null };
+
+  return {
+    ...(args ?? {}),
+    where,
+  } as TArgs;
+}
+
 const prismaClient = basePrisma
 
   // ==========================================
@@ -38,29 +74,83 @@ const prismaClient = basePrisma
     result: {},
     query: {
       $allModels: {
+        async findMany({ model, args, query }) {
+          const softDeleteField = getSoftDeleteField(model as ModelName);
+          if (!softDeleteField) return query(args);
+
+          return query(withSoftDeleteWhere(args, softDeleteField));
+        },
+        async findFirst({ model, args, query }) {
+          const softDeleteField = getSoftDeleteField(model as ModelName);
+          if (!softDeleteField) return query(args);
+
+          return query(withSoftDeleteWhere(args, softDeleteField));
+        },
+        async findFirstOrThrow({ model, args, query }) {
+          const softDeleteField = getSoftDeleteField(model as ModelName);
+          if (!softDeleteField) return query(args);
+
+          return query(withSoftDeleteWhere(args, softDeleteField));
+        },
+        async findUnique({ model, args, query }) {
+          const softDeleteField = getSoftDeleteField(model as ModelName);
+          if (!softDeleteField) return query(args);
+
+          const prismaModel = model.charAt(0).toLowerCase() + model.slice(1);
+          return (basePrisma as any)[prismaModel].findFirst(
+            withSoftDeleteWhere(args, softDeleteField)
+          );
+        },
+        async findUniqueOrThrow({ model, args, query }) {
+          const softDeleteField = getSoftDeleteField(model as ModelName);
+          if (!softDeleteField) return query(args);
+
+          const prismaModel = model.charAt(0).toLowerCase() + model.slice(1);
+          return (basePrisma as any)[prismaModel].findFirstOrThrow(
+            withSoftDeleteWhere(args, softDeleteField)
+          );
+        },
+        async count({ model, args, query }) {
+          const softDeleteField = getSoftDeleteField(model as ModelName);
+          if (!softDeleteField) return query(args);
+
+          return query(withSoftDeleteWhere(args, softDeleteField));
+        },
+        async aggregate({ model, args, query }) {
+          const softDeleteField = getSoftDeleteField(model as ModelName);
+          if (!softDeleteField) return query(args);
+
+          return query(withSoftDeleteWhere(args, softDeleteField));
+        },
+        async groupBy({ model, args, query }) {
+          const softDeleteField = getSoftDeleteField(model as ModelName);
+          if (!softDeleteField) return query(args);
+
+          return query(withSoftDeleteWhere(args, softDeleteField));
+        },
         async delete({ model, args, query }) {
-          if (!Object.keys(softDeleteModels).includes(model))
-            return query(args);
+          const softDeleteField = getSoftDeleteField(model as ModelName);
+          if (!softDeleteField) return query(args);
 
           const prismaModel = model.charAt(0).toLowerCase() + model.slice(1);
 
           return (basePrisma as any)[prismaModel].update({
             ...args,
             data: {
-              deletedAt: new Date(),
+              [softDeleteField]: new Date(),
             },
           });
         },
         async deleteMany({ model, args, query }) {
-          if (!Object.keys(softDeleteModels).includes(model))
-            return query(args);
+          const softDeleteField = getSoftDeleteField(model as ModelName);
+          if (!softDeleteField) return query(args);
 
           const prismaModel = model.charAt(0).toLowerCase() + model.slice(1);
 
           return (basePrisma as any)[prismaModel].updateMany({
             ...args,
             data: {
-              deletedAt: new Date(),
+              [softDeleteField]: new Date(),
             },
           });
         },

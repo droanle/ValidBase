@@ -5,21 +5,24 @@ import { jwtVerify, SignJWT } from 'jose';
 import authConfig from '../config/auth.config';
 import AccessTokenService from '../services/AccessToken.service';
 
-export class InvalidTokenError extends Error {
-  constructor() {
-    super('Invalid or expired token');
-    this.name = 'InvalidTokenError';
+export class InvalidCredentialError extends Error {
+  constructor(
+    public readonly reason?: string,
+    message?: string
+  ) {
+    super(message ?? 'Invalid or expired credentials');
+    this.name = 'InvalidCredentialError';
   }
 }
 
 export type SessionMode = 'account' | 'access' | null;
 
-type AccountSession = {
+export type AccountSession = {
   id: string;
   email: string;
 };
 
-type AccessSession = {
+export type AccessSession = {
   id: string;
   targetId: string;
   targetType: TargetType;
@@ -91,7 +94,7 @@ export default class Session {
         email: payload.email as string,
       });
     } catch (err) {
-      throw new InvalidTokenError();
+      throw new InvalidCredentialError('Invalid or expired account JWT token');
     }
   }
 
